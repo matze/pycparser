@@ -106,6 +106,10 @@ class CLexer(object):
         'RESTRICT', 'RETURN', 'SHORT', 'SIGNED', 'SIZEOF', 'STATIC', 'STRUCT',
         'SWITCH', 'TYPEDEF', 'UNION', 'UNSIGNED', 'VOID',
         'VOLATILE', 'WHILE',
+
+        # OpenCL keywords
+        '__KERNEL', '__GLOBAL', '__LOCAL', '__PRIVATE', '__CONSTANT',
+        '__READ_ONLY', '__WRITE_ONLY',
     )
 
     keyword_map = {}

@@ -271,11 +271,12 @@ class Continue(Node):
     attr_names = ()
 
 class Decl(Node):
-    def __init__(self, name, quals, storage, funcspec, type, init, bitsize, coord=None):
+    def __init__(self, name, quals, storage, funcspec, kernel, type, init, bitsize, coord=None):
         self.name = name
         self.quals = quals
         self.storage = storage
         self.funcspec = funcspec
+        self.kernel = kernel
         self.type = type
         self.init = init
         self.bitsize = bitsize
@@ -288,7 +289,7 @@ class Decl(Node):
         if self.bitsize is not None: nodelist.append(("bitsize", self.bitsize))
         return tuple(nodelist)
 
-    attr_names = ('name','quals','storage','funcspec',)
+    attr_names = ('name','quals','storage','funcspec','kernel',)
 
 class DeclList(Node):
     def __init__(self, decls, coord=None):

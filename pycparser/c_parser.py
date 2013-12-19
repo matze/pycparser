@@ -350,7 +350,7 @@ class CParser(PLYParser):
             Returns the declaration specifier, with the new
             specifier incorporated.
         """
-        spec = declspec or dict(qual=[], storage=[], type=[], function=[])
+        spec = declspec or dict(qual=[], storage=[], type=[], function=[], kernel=[])
         spec[kind].insert(0, newspec)
         return spec
 
@@ -419,6 +419,7 @@ class CParser(PLYParser):
                     quals=spec['qual'],
                     storage=spec['storage'],
                     funcspec=spec['function'],
+                    kernel=spec['kernel'],
                     type=decl['decl'],
                     init=decl.get('init'),
                     bitsize=decl.get('bitsize'),
@@ -690,6 +691,11 @@ class CParser(PLYParser):
         """
         p[0] = self._add_declaration_specifier(p[2], p[1], 'function')
 
+    def p_declaration_specifiers_5(self, p):
+        """ declaration_specifiers  : kernel_specifier declaration_specifiers_opt
+        """
+        p[0] = self._add_declaration_specifier(p[2], p[1], 'kernel')
+
     def p_storage_class_specifier(self, p):
         """ storage_class_specifier : AUTO
                                     | REGISTER
@@ -701,6 +707,17 @@ class CParser(PLYParser):
 
     def p_function_specifier(self, p):
         """ function_specifier  : INLINE
+        """
+        p[0] = p[1]
+
+    def p_kernel_specificier(self, p):
+        """ kernel_specifier : __KERNEL
+                             | __GLOBAL
+                             | __LOCAL
+                             | __PRIVATE
+                             | __CONSTANT
+                             | __READ_ONLY
+                             | __WRITE_ONLY
         """
         p[0] = p[1]
 
