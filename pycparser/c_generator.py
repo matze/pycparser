@@ -329,6 +329,7 @@ class CGenerator(object):
         """ Generation from a Decl node.
         """
         s = ''
+        if n.kernel: s = ' '.join(n.kernel) + ' '
         if n.funcspec: s = ' '.join(n.funcspec) + ' '
         if n.storage: s += ' '.join(n.storage) + ' '
         s += self._generate_type(n.type)
